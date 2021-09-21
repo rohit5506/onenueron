@@ -8,6 +8,14 @@ import os
 plt.style.use("fivethirtyeight") # THIS IS STYLE OF GRAPHS
 
 def prepare_data(df):
+  """it is used to seperate dependent to independent feature
+
+  Args:
+      df (pd.DataFrame): [it is the pandas dataframe ]
+
+  Returns:
+      [tuple]: [it returns the tuples of dependent and independent variable]
+  """
   X = df.drop("y", axis=1)
 
   y = df["y"]
@@ -15,12 +23,25 @@ def prepare_data(df):
   return X, y
 
 def save_model(model, filename):
+  """saves the trained model to
+
+  Args:
+      model (python object): trained model to
+      filename (str): path to train the saved model
+  """
   model_dir = "models"
   os.makedirs(model_dir, exist_ok=True) # ONLY CREATE IF MODEL_DIR DOESN"T EXISTS
   filePath = os.path.join(model_dir, filename) # model/filename
   joblib.dump(model, filePath)
 
 def save_plot(df, file_name, model):
+  """save the plot generated as.png file
+
+  Args:
+      df (pd.dataframe): dataframe
+      file_name (str): filename 
+      model (str): model name that is trained
+  """
   def _create_base_plot(df):
     df.plot(kind="scatter", x="x1", y="x2", c="y", s=100, cmap="winter")
     plt.axhline(y=0, color="black", linestyle="--", linewidth=1)
